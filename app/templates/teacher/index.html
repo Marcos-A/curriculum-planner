@@ -102,15 +102,13 @@
           <label class="choice-card">
             <input type="radio" name="planning_mode" value="sequential" {% if form.get('planning_mode', 'sequential') == 'sequential' %}checked{% endif %} />
             <span>Seqüencial</span>
-            <small>Una única cadena de RAs, una darrere l'altra.</small>
           </label>
         </div>
         <div class="planning-mode-option">
-          <p>Activeu els blocs si hi ha RA que s'imparteixen en paral·lel.</p>
+          <p>Activeu els blocs en paral·lel si hi ha RA que s'imparteixen simultàniament.</p>
           <label class="choice-card">
             <input type="radio" name="planning_mode" value="parallel" {% if form.get('planning_mode') == 'parallel' %}checked{% endif %} />
             <span>Blocs en paral·lel</span>
-            <small>Dos blocs setmanals que poden conviure i, si cal, alliberar hores.</small>
           </label>
         </div>
       </div>
