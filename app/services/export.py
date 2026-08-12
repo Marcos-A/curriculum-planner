@@ -37,6 +37,7 @@ RA_HEADER_FILLS = [
     "EFE0C8",
 ]
 ROW_START_FILL = PatternFill(fill_type="solid", fgColor="E9E9E9")
+FIXED_COLUMN_FILL = PatternFill(fill_type="solid", fgColor="F2ECE0")
 THIN_BORDER = Border(
     left=Side(style="thin", color="000000"),
     right=Side(style="thin", color="000000"),
@@ -223,6 +224,7 @@ def build_workbook(
     instruction_cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
     calendar_sheet.row_dimensions[1].height = _instruction_banner_height(len(ras))
 
+    metadata_cell_refs: dict[str, str] = {}
     for row_index, field_name in enumerate(CALENDAR_METADATA_FIELDS, start=2):
         calendar_sheet.merge_cells(start_row=row_index, start_column=1, end_row=row_index, end_column=hours_column)
         label_cell = calendar_sheet.cell(row=row_index, column=1)
@@ -232,6 +234,9 @@ def build_workbook(
         value_cell = calendar_sheet.cell(row=row_index, column=first_ra_column)
         value_cell.value = _calendar_metadata_value(summary, field_name)
         value_cell.alignment = Alignment(horizontal="left", vertical="center")
+        metadata_cell_refs[field_name] = (
+            f"{calendar_sheet.title}!{get_column_letter(first_ra_column)}{row_index}"
+        )
 
     if has_optional_ra_names:
         calendar_sheet.merge_cells(
@@ -260,16 +265,19 @@ def build_workbook(
         week_header_cell.value = "Set."
         week_header_cell.font = Font(bold=True)
         week_header_cell.alignment = Alignment(horizontal="center", vertical="center")
+        week_header_cell.fill = FIXED_COLUMN_FILL
 
     data_header_cell = calendar_sheet.cell(row=header_main_row, column=weekday_column)
     data_header_cell.value = "Data"
     data_header_cell.alignment = Alignment(horizontal="left", vertical="center")
     data_header_cell.font = Font(bold=True)
+    data_header_cell.fill = FIXED_COLUMN_FILL
 
     hours_header_cell = calendar_sheet.cell(row=header_main_row, column=hours_column)
     hours_header_cell.value = "Hores"
     hours_header_cell.alignment = Alignment(horizontal="center", vertical="center")
     hours_header_cell.font = Font(bold=True)
+    hours_header_cell.fill = FIXED_COLUMN_FILL
 
     comment_header_cell = calendar_sheet.cell(row=header_main_row, column=comment_column_index)
     comment_header_cell.value = "Comentaris"
@@ -313,10 +321,15 @@ def build_workbook(
         excel_row.extend(ra_hours[ra.key] or None for ra in ras)
         excel_row.append(None)
         calendar_sheet.append(excel_row)
+        current_row = calendar_sheet.max_row
+        if include_week_numbers:
+            calendar_sheet.cell(row=current_row, column=week_column).fill = FIXED_COLUMN_FILL
+        calendar_sheet.cell(row=current_row, column=weekday_column).fill = FIXED_COLUMN_FILL
+        calendar_sheet.cell(row=current_row, column=date_column).fill = FIXED_COLUMN_FILL
+        calendar_sheet.cell(row=current_row, column=hours_column).fill = FIXED_COLUMN_FILL
         active_keys = _active_ra_keys(row, ras)
         newly_started_keys = [key for key in active_keys if key not in started_ra_keys]
         if newly_started_keys:
-            current_row = calendar_sheet.max_row
             for cell in calendar_sheet[current_row]:
                 cell.fill = ROW_START_FILL
             for key in newly_started_keys:
@@ -458,12 +471,14 @@ def build_workbook(
                 cell.border = THIN_BORDER
 
     summary_sheet = workbook.create_sheet("Resum")
-    summary_sheet.freeze_panes = "A2"
     summary_sheet.append(["Camp", "Valor"])
     for cell in summary_sheet[1]:
         cell.font = Font(bold=True)
 
     for key, value in summary.items():
+        if key in metadata_cell_refs:
+            ref = metadata_cell_refs[key]
+            value = f'=IF({ref}="","",{ref})'
         summary_sheet.append([key, value])
 
     summary_sheet.column_dimensions["A"].width = 28
