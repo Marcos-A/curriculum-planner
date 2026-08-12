@@ -631,7 +631,9 @@ def test_export_parallel_mode_only_marks_rows_where_a_new_ra_first_appears():
     assert sheet["D7"].fill.fgColor.rgb == "00E7EFD8"
     assert sheet["E7"].fill.fgColor.rgb == "00D8EBF2"
     assert sheet["G7"].fill.fgColor.rgb == "00E9E9E9"
-    assert sheet["A8"].fill.patternType is None
+    assert sheet["A8"].fill.fgColor.rgb == "00F2ECE0"
+    assert sheet["B8"].fill.fgColor.rgb == "00F2ECE0"
+    assert sheet["C8"].fill.fgColor.rgb == "00F2ECE0"
     assert sheet["D8"].fill.patternType is None
     assert sheet["E8"].fill.patternType is None
     assert sheet["G8"].fill.patternType is None
