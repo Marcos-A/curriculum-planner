@@ -609,7 +609,7 @@ button:disabled {
 .choice-card {
   gap: 0.5rem;
   cursor: pointer;
-  min-height: 8.5rem;
+  min-height: 4.5rem;
   align-content: center;
   justify-items: center;
   text-align: center;
