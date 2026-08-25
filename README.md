@@ -52,6 +52,10 @@ Quan alguns RAs s'imparteixen simultàniament, es poden dividir les hores setman
 
 ![Configuració de dos blocs en paral·lel](docs/screenshots/tempo-step-1-parallel.png)
 
+Al segon pas, els RAs es poden repartir, reordenar i validar dins de cada bloc abans de generar el llibre XLSX.
+
+![Assignació de RAs entre blocs en paral·lel](docs/screenshots/tempo-step-2-parallel.png)
+
 La pàgina d'entrada també està disponible a [docs/screenshots/tempo-step-1-landing_page.png](docs/screenshots/tempo-step-1-landing_page.png). Les captures restants, inclosa una segona vista del llibre exportat, es conserven a [docs/screenshots/](docs/screenshots/) per a documentació més detallada.
 
 ## Actius visuals

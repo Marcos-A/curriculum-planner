@@ -17,7 +17,7 @@ The files in this folder document the public teacher workflow. The README delibe
 | `tempo-step-2-sequencial.png` | Step 2: allocate available hours and prepare export | Main visual walkthrough |
 | `tempo-step-3-spreadsheet_1.png` | Result: primary view of the generated XLSX workbook | Main visual walkthrough |
 | `tempo-step-1-parallel.png` | Step 1: configure two parallel blocks | Supporting advanced-mode example |
-| `tempo-step-2-parallel.png` | Step 2: distribute RAs across parallel blocks | Kept for detailed documentation |
+| `tempo-step-2-parallel.png` | Step 2: distribute RAs across parallel blocks | Supporting advanced-mode example |
 | `tempo-step-3-spreadsheet_2.png` | Result: secondary workbook view | Kept for detailed documentation |
 
 `step-3` describes the exported result, not a third screen in the application: the teacher interface itself has two steps.

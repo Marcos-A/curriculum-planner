@@ -52,6 +52,10 @@ When learning outcomes are taught at the same time, weekly hours can be split in
 
 ![Configuration of two parallel planning blocks](docs/screenshots/tempo-step-1-parallel.png)
 
+In the second step, learning outcomes can be assigned, reordered, and validated within each block before the XLSX workbook is generated.
+
+![Learning-outcome allocation across parallel blocks](docs/screenshots/tempo-step-2-parallel.png)
+
 The entry screen is also available at [docs/screenshots/tempo-step-1-landing_page.png](docs/screenshots/tempo-step-1-landing_page.png). The remaining screenshots, including a second view of the exported workbook, live in [docs/screenshots/](docs/screenshots/) for more detailed documentation.
 
 ## Visual Assets
